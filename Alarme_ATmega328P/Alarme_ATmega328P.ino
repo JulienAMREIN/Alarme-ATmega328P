@@ -1,3 +1,17 @@
+/*
+
+Info:
+
+Version STABLE 1.0 du code de l'alarme basée sur le microcontroleur ATMEGA328P-PU PDIP-28.
+Un bouton poussoir avec un filtrage anti rebond de 10nF sur la pin 2.
+Un détecteur de mouvement type RADAR HF avec une carte de transformation du signal sur la pin 4.
+Un relais pour activer une sirène 230v sur la pin 7.
+Un affichage LCD 16*2 connecté en I2C pour le retour d'information utilisateur.
+
+Proposé par: Julien AMREIN.
+
+*/
+
 #include <Wire.h> 
 #include <LiquidCrystal_I2C.h>
 
@@ -35,25 +49,10 @@ void setup()
 
 void loop()
 {
-/*
-
-Info:
-
-Version STABLE 1.0 du code de l'alarme basée sur le microcontroleur ATMEGA328P-PU PDIP-28.
-Un bouton poussoir avec un filtrage anti rebond de 10nF sur la pin 2.
-Un détecteur de mouvement type RADAR HF avec une carte de transformation du signal sur la pin 4.
-Un relais pour activer une sirène 230v sur la pin 7.
-Un affichage LCD 16*2 connecté en I2C pour le retour d'information utilisateur.
-
-Proposé par: Julien AMREIN.
-
-*/
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------Si alarme OFF---------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------------------------------------
-
-
 
 	while(etatAlarme == 0) 
 		{
@@ -71,11 +70,9 @@ Proposé par: Julien AMREIN.
       
 		}
 
-
 // ---------------------------------------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------Si alarme ON---------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------------------------------------
-
 
 	while(etatAlarme == 1) 
 		{
@@ -149,11 +146,6 @@ Proposé par: Julien AMREIN.
 					delay(delaisArmement / 60);
 					}
 				} //------------------------------Fin de temporisation avant sirène--------------------------------------------
-
-
-
-
-
 
 			if((etatBouton != 0) && (etatAlarme == 1)) // Si le bouton n'est pas appuyé + état alarme activé, alors...
 				{
