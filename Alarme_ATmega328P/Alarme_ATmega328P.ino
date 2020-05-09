@@ -45,13 +45,15 @@ void loop()
 	while(etatAlarme == 0) 
 		{
 		etatBouton = digitalRead(bouton); // Lecture de l'état du bouton      
-		if(etatBouton == 0) // lors de l'activation
+		if(etatBouton == 0) // si appui sur le bouton pour l'activation de l'alarme
 			{
 			etatAlarme = 1;
 			lcd.clear();
+			lcd.backlight();
 			lcd.setCursor(3,0);
 			lcd.print("Alarme ON ");
-			delay(1000);
+			delay(delaisArmement); // visualisation pendant X secondes du texte puis extinction écran
+			lcd.noBacklight();
 			}
       
 		}
@@ -68,24 +70,30 @@ void loop()
 		etatBouton = digitalRead(bouton); // Lecture de l'état du bouton      
  		etatCapteur = digitalRead(capteur); // Lecture de l'état du capteur     
 
-		if(etatBouton == 0) // si demande d'arret de l'alarme
+		if(etatBouton == 0) // si demande d'arret de l'alarme en appuyant sur le bouton
 			{
 			lcd.clear();
+			lcd.backlight();
 			lcd.setCursor(3,0);
 			lcd.print("Alarme OFF ");
-			digitalWrite(relais, HIGH); //désactivation du contact de sirène
+			digitalWrite(relais, HIGH); //désactivation du contacteur d'alimentation de sirène
 			etatAlarme = 0;
-			delay(1000);
+			delay(5000); // visualisation pendant 5 secondes du texte puis extinction écran
+			lcd.noBacklight();
 			}      
 
-		if((etatCapteur == 0) && (etatBouton == 1) && (etatAlarme == 1))
+		if((etatCapteur == 0) && (etatBouton == 1) && (etatAlarme == 1)) // Si le capteur a détecté qqe chose + bouton relaché + état alarme activé, alors...
 			{
 			lcd.clear();
-			lcd.setCursor(3,0);
-			lcd.print("Intrusion ");
+			lcd.backlight();
+			lcd.setCursor(0,0);
+			lcd.print("Activation sys.");
+			lcd.setCursor(6,1);
+			lcd.print("en cours");
+			delay(3000);
 
 
-                	for(int i = 0; i < 16; i++)//----------------Temporisation avant sirène-----------------------------------------------
+                	for(int i = 0; i < 16; i++)//----------------Temporisation avant sirène------------------------------------------------
 				{
 				etatBouton = digitalRead(bouton); // Lecture de l'état du bouton
 				if((etatBouton != 0) && (etatAlarme == 1))
@@ -127,16 +135,20 @@ void loop()
 					lcd.print(" ");
 					delay(delaisArmement / 60);
 					}
-				}
+				} //------------------------------Fin de temporisation avant sirène--------------------------------------------
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
 
-//-----------------------------------------------------------------------Fin de temporisation avant sirène--------------------------------------------
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
 			if((etatBouton != 0) && (etatAlarme == 1))
 				{
 				digitalWrite(relais, LOW); //Activation du contact de sirène
+				lcd.clear();
+				lcd.backlight();
+				lcd.setCursor(4,0);
+				lcd.print("Intrusion");
 				}
 			} // accolades de: if((etatCapteur == 0) && (etatBouton == 1) && (etatAlarme == 1))
                   
