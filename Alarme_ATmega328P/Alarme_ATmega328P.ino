@@ -28,13 +28,26 @@ void setup()
 	lcd.backlight();
 	lcd.clear();
 	lcd.setCursor(0,0);
-	lcd.print("ATMega 328P v0.1");
+	lcd.print("ATMega 328P v1.0");
 	lcd.setCursor(0,1);
 	lcd.print("Julien AMREIN(c)");
 }
 
 void loop()
 {
+/*
+
+Info:
+
+Version STABLE 1.0 du code de l'alarme basée sur le microcontroleur ATMEGA328P-PU PDIP-28.
+Un bouton poussoir avec un filtrage anti rebond de 10nF sur la pin 2.
+Un détecteur de mouvement type RADAR HF avec une carte de transformation du signal sur la pin 4.
+Un relais pour activer une sirène 230v sur la pin 7.
+Un affichage LCD 16*2 connecté en I2C pour le retour d'information utilisateur.
+
+Proposé par: Julien AMREIN.
+
+*/
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------Si alarme OFF---------------------------------------------------------
