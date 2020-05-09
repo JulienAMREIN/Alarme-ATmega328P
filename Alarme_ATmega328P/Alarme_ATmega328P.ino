@@ -27,10 +27,10 @@ void setup()
 	lcd.init(); // initialisation du lcd 
 	lcd.backlight();
 	lcd.clear();
-	lcd.setCursor(3,0);
-	lcd.print("ATMega 328P ");
-	lcd.setCursor(3,1);
-	lcd.print("Start v0.1");
+	lcd.setCursor(0,0);
+	lcd.print("ATMega 328P v0.1");
+	lcd.setCursor(0,1);
+	lcd.print("Julien AMREIN(c)");
 }
 
 void loop()
@@ -78,7 +78,7 @@ void loop()
 			lcd.print("Alarme OFF ");
 			digitalWrite(relais, HIGH); //désactivation du contacteur d'alimentation de sirène
 			etatAlarme = 0;
-			delay(5000); // visualisation pendant 5 secondes du texte puis extinction écran
+			delay(5000); // visualisation pendant X secondes du texte puis extinction écran
 			lcd.noBacklight();
 			}      
 
@@ -90,7 +90,7 @@ void loop()
 			lcd.print("Activation sys.");
 			lcd.setCursor(6,1);
 			lcd.print("en cours");
-			delay(3000);
+			delay(3000); // visualisation pendant X secondes du texte
 
 
                 	for(int i = 0; i < 16; i++)//----------------Temporisation avant sirène------------------------------------------------
@@ -142,7 +142,7 @@ void loop()
 
 
 
-			if((etatBouton != 0) && (etatAlarme == 1))
+			if((etatBouton != 0) && (etatAlarme == 1)) // Si le bouton n'est pas appuyé + état alarme activé, alors...
 				{
 				digitalWrite(relais, LOW); //Activation du contact de sirène
 				lcd.clear();
@@ -152,9 +152,6 @@ void loop()
 				}
 			} // accolades de: if((etatCapteur == 0) && (etatBouton == 1) && (etatAlarme == 1))
                   
-
-
               } // accolades de: while(etatAlarme == 1)
-
 		
 	} // accolades de: void loop()
